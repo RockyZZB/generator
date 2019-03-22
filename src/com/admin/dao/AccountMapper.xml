@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.admin.po.Account">
+    <id column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleid" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="Telephon" jdbcType="VARCHAR" property="telephon" />
+    <result column="AddDateTime" jdbcType="TIMESTAMP" property="adddatetime" />
+    <result column="DBIDS" jdbcType="VARCHAR" property="dbids" />
+    <result column="STATUS" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserID, UserName, Password, RoleID, Email, Telephon, AddDateTime, DBIDS, STATUS
+  </sql>
+  <select id="selectByExample" parameterType="com.admin.po.AccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Account
+    where UserID = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Account
+    where UserID = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.admin.po.AccountExample">
+    delete from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.admin.po.Account">
+    insert into Account (UserID, UserName, Password, 
+      RoleID, Email, Telephon, 
+      AddDateTime, DBIDS, STATUS
+      )
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{telephon,jdbcType=VARCHAR}, 
+      #{adddatetime,jdbcType=TIMESTAMP}, #{dbids,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.admin.po.Account">
+    insert into Account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="roleid != null">
+        RoleID,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="telephon != null">
+        Telephon,
+      </if>
+      <if test="adddatetime != null">
+        AddDateTime,
+      </if>
+      <if test="dbids != null">
+        DBIDS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephon != null">
+        #{telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="adddatetime != null">
+        #{adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbids != null">
+        #{dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.admin.po.AccountExample" resultType="java.lang.Integer">
+    select count(*) from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Account
+    <set>
+      <if test="record.userid != null">
+        UserID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleid != null">
+        RoleID = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephon != null">
+        Telephon = #{record.telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adddatetime != null">
+        AddDateTime = #{record.adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbids != null">
+        DBIDS = #{record.dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Account
+    set UserID = #{record.userid,jdbcType=INTEGER},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      RoleID = #{record.roleid,jdbcType=INTEGER},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Telephon = #{record.telephon,jdbcType=VARCHAR},
+      AddDateTime = #{record.adddatetime,jdbcType=TIMESTAMP},
+      DBIDS = #{record.dbids,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.admin.po.Account">
+    update Account
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        RoleID = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephon != null">
+        Telephon = #{telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="adddatetime != null">
+        AddDateTime = #{adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbids != null">
+        DBIDS = #{dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.admin.po.Account">
+    update Account
+    set UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      RoleID = #{roleid,jdbcType=INTEGER},
+      Email = #{email,jdbcType=VARCHAR},
+      Telephon = #{telephon,jdbcType=VARCHAR},
+      AddDateTime = #{adddatetime,jdbcType=TIMESTAMP},
+      DBIDS = #{dbids,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=BIT}
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.admin.po.Account">
+    <id column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleid" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="Telephon" jdbcType="VARCHAR" property="telephon" />
+    <result column="AddDateTime" jdbcType="TIMESTAMP" property="adddatetime" />
+    <result column="DBIDS" jdbcType="VARCHAR" property="dbids" />
+    <result column="STATUS" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserID, UserName, Password, RoleID, Email, Telephon, AddDateTime, DBIDS, STATUS
+  </sql>
+  <select id="selectByExample" parameterType="com.admin.po.AccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Account
+    where UserID = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Account
+    where UserID = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.admin.po.AccountExample">
+    delete from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.admin.po.Account">
+    insert into Account (UserID, UserName, Password, 
+      RoleID, Email, Telephon, 
+      AddDateTime, DBIDS, STATUS
+      )
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{telephon,jdbcType=VARCHAR}, 
+      #{adddatetime,jdbcType=TIMESTAMP}, #{dbids,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.admin.po.Account">
+    insert into Account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="roleid != null">
+        RoleID,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="telephon != null">
+        Telephon,
+      </if>
+      <if test="adddatetime != null">
+        AddDateTime,
+      </if>
+      <if test="dbids != null">
+        DBIDS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephon != null">
+        #{telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="adddatetime != null">
+        #{adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbids != null">
+        #{dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.admin.po.AccountExample" resultType="java.lang.Integer">
+    select count(*) from Account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Account
+    <set>
+      <if test="record.userid != null">
+        UserID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleid != null">
+        RoleID = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephon != null">
+        Telephon = #{record.telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adddatetime != null">
+        AddDateTime = #{record.adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbids != null">
+        DBIDS = #{record.dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Account
+    set UserID = #{record.userid,jdbcType=INTEGER},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      RoleID = #{record.roleid,jdbcType=INTEGER},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Telephon = #{record.telephon,jdbcType=VARCHAR},
+      AddDateTime = #{record.adddatetime,jdbcType=TIMESTAMP},
+      DBIDS = #{record.dbids,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.admin.po.Account">
+    update Account
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        RoleID = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telephon != null">
+        Telephon = #{telephon,jdbcType=VARCHAR},
+      </if>
+      <if test="adddatetime != null">
+        AddDateTime = #{adddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbids != null">
+        DBIDS = #{dbids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.admin.po.Account">
+    update Account
+    set UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      RoleID = #{roleid,jdbcType=INTEGER},
+      Email = #{email,jdbcType=VARCHAR},
+      Telephon = #{telephon,jdbcType=VARCHAR},
+      AddDateTime = #{adddatetime,jdbcType=TIMESTAMP},
+      DBIDS = #{dbids,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=BIT}
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
